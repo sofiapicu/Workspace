@@ -10,6 +10,7 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -37,8 +38,42 @@
     </div>
   </nav>
   <main>
+    <div id="container" class="container"> 
+    </div>
     <div class="container">
-      
+      <br>
+    <hr>
+    <br>
+    <h3> Comentarios </h3>
+    <br>
+      <div class="row">
+          <div class="list-group" id="commentsContainer">
+          </div>    
+      </div>
+    </div>
+    <div id="divForm" class="container">
+      <br>
+      <br>
+      <h3> Comentar </h3>
+      <div class="container">
+          <form>
+              <label for="comment" style="padding: 10px"> Tu opinión: </label>
+              <br>
+              <textarea class="form-control" name="comment" id="comment" style="max-width: 40%"></textarea>
+              <br>
+              <label for="score" style="padding: 10px">Tu puntuación:</label>
+              <br>
+              <select name="score" id="score" class="form-select" style="max-width: 10%">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+              </select> 
+              <br>
+              <input type="button" name="btnCom" id="btnCom" value="Enviar" class="btn btn-primary">
+          </form>
+      </div>
     </div>
   </main>
   <footer class="text-muted">

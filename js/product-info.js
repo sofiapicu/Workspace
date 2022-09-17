@@ -1,29 +1,67 @@
+const contenedor = document.getElementById("container");
 let data = {};
 let dataCom = [];
-const contenedor = document.getElementById("container");
 
 const showProductInfo = (obj) => {
     const { category, cost, currency, description, images, name, soldCount } = obj;
-    contenedor.innerHTML += `
-    <h2> ${name} </h2>
+    let aux = "";
+    let auxImgn = "";
+   
+    for (let imgn of images) {
+        auxImgn += ` <img src="${imgn}" alt="imagen producto" class="col-3"> `;
+    };
+    
+    aux += `
     <br>
-    <h3> Precio </h3>
+    <h2> ${name} </h2>
+    <hr>
+    <h5><b> Precio </b></h5>
     <p> ${currency} ${cost} </p>
-    <h3> Descripción </h3>
+    <h5><b> Descripción </b></h5>  
     <p> ${description} </p>
-    <h3> Categoría </h3>
+    <h5><b> Categoría </b></h5>
     <p> ${category} </p>
-    <h3> Cantidad de vendidos </h3>
+    <h5><b> Cantidad de vendidos </b></h5>
     <p> ${soldCount} </p>
-    <h3> Imágenes ilustrativas </h3>
+    <h5><b> Imágenes ilustrativas </b></h5>
+    <div class="row"> ` + auxImgn + ` </div>
     `
 
-   /* for (let imgn of images) {
-        aux += ` <img src="imgn" alt="imagen producto" class=""> `;
-    };*/
-    console.log(obj)
-    console.log(aux)
+    contenedor.innerHTML += aux ;
 };
+
+const showStars = (num) => {
+    let aux = "";
+    for (let i = 1; num >= i; i++) {
+        aux += ` <span class="fa fa-star checked"></span> `
+    };
+    for (let i = 0; (5 - num) > i; i++) {
+        aux += ` <span class="fa fa-star"></span> `
+    };
+    return aux
+};
+
+const commentsContainer = document.getElementById("commentsContainer");
+
+const showComments = (arr) => {
+    let aux = "";
+    for (let item of arr) {
+        const { score, description, user, dateTime } = item;
+
+        aux += `
+        <div class="list-group-item list-group-item-action">
+            <p><b>${user}</b> - ${dateTime} - ` + showStars(score) + ` </p>
+            <p>${description}</p>
+        </div>
+        `
+    };
+    
+    commentsContainer.innerHTML += aux ;
+};
+
+const btnCom = document.getElementById("btnCom");
+const comm = document.getElementById("comment");
+const sco = document.getElementById("score");
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -32,13 +70,31 @@ document.addEventListener("DOMContentLoaded", function(){
             data = resultObj.data;
         };
         showProductInfo(data);
-    });
+        getJSONData(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("prodID") + EXT_TYPE).then(function(resultObj){
+            if (resultObj.status === "ok"){
+                dataCom = resultObj.data;
+            };
+            
+            showComments(dataCom);
 
-    getJSONData(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("prodID") + EXT_TYPE).then(function(resultObj){
-        if (resultObj.status === "ok"){
-            dataCom = resultObj.data;
-        };
-        console.log(dataCom);
+            dataCom.sort(function(a, b) {  // SORT según la fecha (mas reciente a menos reciente)
+                if ( a.dateTime < b.dateTime ){ return 1; }
+                if ( a.dateTime > b.dateTime ){ return -1; }
+                return 0;
+            });
+
+            btnCom.addEventListener("click", () => {
+                if (comm.value != "") {
+                    dataCom.push({product: 50921, score: sco.value, description: comm.value , user: sessionStorage.getItem("user") , dateTime: Date() });
+                    const clean = "";
+                    commentsContainer.innerHTML = clean;
+                    showComments(dataCom);
+                    sco.value = null;
+                    comm.value = null;
+                };
+            });
+            
+        });
     });
     
     usuario.innerText = sessionStorage.getItem("user");
