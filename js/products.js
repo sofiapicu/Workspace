@@ -114,8 +114,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     btnClear.addEventListener("click", function() {
         showProductsList(auxArr);
-        //minVal.innerHTML = `${value = null}`;
-        //maxVal.innerHTML = `${value = undefined}`;
+        minVal.value = null;
+        maxVal.value = null;
     });
 
 });

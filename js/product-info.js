@@ -69,7 +69,9 @@ document.addEventListener("DOMContentLoaded", function(){
         if (resultObj.status === "ok"){
             data = resultObj.data;
         };
+        
         showProductInfo(data);
+        
         getJSONData(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("prodID") + EXT_TYPE).then(function(resultObj){
             if (resultObj.status === "ok"){
                 dataCom = resultObj.data;
@@ -83,9 +85,16 @@ document.addEventListener("DOMContentLoaded", function(){
                 return 0;
             });
 
+            const timeNow = () => {
+                const d = new Date();
+                let now = "";
+                now += ` ${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()} `;
+                return now;
+            };
+
             btnCom.addEventListener("click", () => {
                 if (comm.value != "") {
-                    dataCom.push({product: 50921, score: sco.value, description: comm.value , user: sessionStorage.getItem("user") , dateTime: Date() });
+                    dataCom.push({product: 50921, score: sco.value, description: comm.value , user: sessionStorage.getItem("user") , dateTime: timeNow() });
                     const clean = "";
                     commentsContainer.innerHTML = clean;
                     showComments(dataCom);
@@ -98,5 +107,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     
     usuario.innerText = sessionStorage.getItem("user");
+
+    
 
 });
