@@ -19,24 +19,24 @@
 <body id="login_bgn">
   <main class="mt-5">
     <div class="form-singin">
-      <form action="index.html">
+      <form id="loginForm">
         <img src="img/login.png" alt="login_img" class="mb-4">
         <h3 class="h3 mb-3 fw-normal">Inicio de sesión</h3>
         <div class="container col-md-3">
           <div>
             <label for="email">Email</label>
           <br>
-          <input id="mail" type="email" placeholder="Email" name="email" class="form-control" required>
+          <input id="mail" type="email" placeholder="Email" name="email" class="form-control">
           <br>
           </div>
           <div>
             <label for="psw">Contraseña</label>
           <br>
-          <input type="password" placeholder="Contraseña" name="psw" class="form-control" required>
+          <input id="password" type="password" placeholder="Contraseña" name="psw" class="form-control">
           </div>
           <div>
             <br>
-          <button id="btn" type="submit" name="ingresar" class="btn btn-primary">Ingresar</button>
+          <button type="submit" name="ingresar" class="btn btn-primary">Ingresar</button>
           </div>
         </div>
       </form>

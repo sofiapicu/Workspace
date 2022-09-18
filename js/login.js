@@ -1,12 +1,17 @@
 const email = document.getElementById("mail");
-const btn = document.getElementById("btn");
+const contraseña = document.getElementById("password");
 
 document.addEventListener("DOMContentLoaded", function (){
-    localStorage.clear()
-});
+    localStorage.clear();
+    
+    email.value = "";
+    contraseña.value = "";
 
-btn.addEventListener("click", () => {
-    sessionStorage.setItem("user", email.value);
-    console.log(sessionStorage.getItem("user"))
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (email.value != "" && contraseña.value != "") {
+            this.location.replace("index.html");
+            sessionStorage.setItem("user", email.value);
+        };
+    });
 });
-
