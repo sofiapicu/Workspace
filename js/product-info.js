@@ -6,9 +6,13 @@ const showProductInfo = (obj) => {
     const { category, cost, currency, description, images, name, soldCount } = obj;
     let aux = "";
     let auxImgn = "";
-   
-    for (let imgn of images) {
-        auxImgn += ` <img src="${imgn}" alt="imagen producto" class="col-3"> `;
+
+    auxImgn += `<div class="carousel-item active">
+    <img src="${images[0]}" class="d-block w-100" alt="imagen producto">
+    </div>`; 
+
+    for (let i = 1; i < images.length; i++) {
+        auxImgn += ` <div class="carousel-item"><img src="${images[i]}" class="d-block w-100" alt="imagen producto"></div> `;
     };
     
     aux += `
@@ -24,8 +28,19 @@ const showProductInfo = (obj) => {
     <h5><b> Cantidad de vendidos </b></h5>
     <p> ${soldCount} </p>
     <h5><b> Imágenes ilustrativas </b></h5>
-    <div class="row"> ` + auxImgn + ` </div>
-    `
+    <div id="carouselExampleControls" class="carousel slide w-50" data-bs-ride="carousel">
+        <div class="carousel-inner">
+         ` + auxImgn + `
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>`;
 
     contenedor.innerHTML += aux ;
 };
@@ -54,9 +69,31 @@ const showComments = (arr) => {
             <p>${description}</p>
         </div>
         `
+     };
+    
+    commentsContainer.innerHTML += aux;
+};
+
+function setProdID(id) {
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+};
+
+const relatedProducts = (arr) => {
+    let aux = "";
+    for(let item of arr) {
+        const { name, image, id } = item;
+        aux += `
+        <br>
+        <div class="card col-3" style="border-width: 0px; margin-right: 1rem;" onclick="setProdID(${id})">
+        <img src="${image}" class="" style="margin-top: 1rem;">
+        <br>
+        <h5>${name}</h5>
+        </div>
+        `; 
     };
     
-    commentsContainer.innerHTML += aux ;
+    document.getElementById("relatedProd").innerHTML += aux; 
 };
 
 const btnCom = document.getElementById("btnCom");
@@ -70,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function(){
             data = resultObj.data;
         };
         
+        console.log(data);
         showProductInfo(data);
         
         getJSONData(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("prodID") + EXT_TYPE).then(function(resultObj){
@@ -102,6 +140,8 @@ document.addEventListener("DOMContentLoaded", function(){
                     comm.value = null;
                 };
             });
+
+            relatedProducts(data.relatedProducts);
             
         });
     });
