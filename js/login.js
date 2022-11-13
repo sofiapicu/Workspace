@@ -3,7 +3,8 @@ const contraseña = document.getElementById("password");
 
 document.addEventListener("DOMContentLoaded", function (){
     localStorage.clear();
-    
+    sessionStorage.clear();
+
     email.value = "";
     contraseña.value = "";
 

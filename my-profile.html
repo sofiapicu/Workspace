@@ -44,7 +44,7 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item nav-link">
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <span id="usuario"></span>
@@ -55,6 +55,7 @@
                 <li><a class="dropdown-item" href="login.html">Cerrar sesión</a></li>
               </ul>
             </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -62,9 +63,41 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+      <br>
+      <h1>Perfil</h1>
+      <hr>
+      <br>
+      <form id="form" class="needs-validation" novalidate>
+        <div class="d-flex justify-content-around">
+          <div class="w-50 p-3">
+            <label for="firstName" class="form-label">Primer nombre*</label>
+            <input type="text" id="firstName" name="firstName" class="form-control" required><br>
+    
+            <label for="firstLastname" class="form-label">Primer apellido*</label>
+            <input type="text" id="firstLastname" name="firstLastname" class="form-control" required><br>
+    
+            <label for="email" class="form-label">E-mail*</label>
+            <input type="email" id="email" name="mail" class="form-control" required>
+          </div>
+          <div class="w-50 p-3">
+            <label for="secondName" class="form-label">Segundo nombre</label>
+            <input type="text" id="secondName" name="secondName" class="form-control"><br>
+    
+            <label for="secondLastname" class="form-label">Segundo apellido</label>
+            <input type="text" id="secondLastname" name="secondLastname" class="form-control"><br>
+    
+            <label for="contactPhone" class="form-label">Teléfono de contacto</label>
+            <input type="text" id="contactPhone" name="contactPhone" class="form-control">
+          </div>
+        </div>
+        <br>
+        <hr>
+        <button type="button" id="saveChanges" class="btn btn-primary m-3">Guardar cambios</button>
+      </form>
+      <div class="alert alert-danger alert-dismissible" hidden role="alert" id="alertError">
+        <strong>Debe llenar todos los campos obligatorios</strong>
+        <button class="btn-close" id="closeBtn"></button>
+    </div>
     </div>
   </main>
   <footer class="text-muted">
